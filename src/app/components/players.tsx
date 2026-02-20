@@ -17,7 +17,7 @@ export default function PlayersSection() {
   const [activeTab, setActiveTab] = useState('DEFENDERS');
 
   return (
-    <section className="bg-white py-16 px-4 font-sans">
+    <section className="bg-white py-16 px-4 font-sans" id='players'>
       <div className="max-w-6xl mx-auto text-center">
         {/* Main Title */}
         <h2 className="text-6xl font-black mb-12 tracking-tight text-black">

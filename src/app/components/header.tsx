@@ -1,5 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 const Header = () => {
@@ -9,22 +9,22 @@ const Header = () => {
         <div className="flex justify-between items-center h-24">
           
           <div className="flex items-center gap-4">
-            <div className="relative w-16 h-16 flex items-center justify-center border-2 border-black rounded-full">
-            {/* Replace with <img src="/logo.png" /> for the actual tiger logo */}
+            <div className="relative w-20 h-20 flex overflow-hidden items-center justify-center rounded-full">
+              <Image alt='Inter Racial' src="/imgs/logo.jpg" width={100} height={100}/>
             </div>
-            <h1 className="text-3xl font-black tracking-tight text-black font-sans uppercase">
+            <h1 className="text-3xl font-black tracking-tight text-black font-sans">
               FC Inter Racial
             </h1>
           </div>
 
           <nav className="hidden md:flex space-x-12">
-            <Link href="/news" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
+            <Link href="#news" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
               News
             </Link>
-            <Link href="/players" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
+            <Link href="#players" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
               Players
             </Link>
-            <Link href="/story" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
+            <Link href="#story" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
               Our Story
             </Link>
           </nav>
