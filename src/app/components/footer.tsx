@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Facebook, Instagram, Youtube } from 'lucide-react';
 
 const Footer = () => {
@@ -20,15 +21,10 @@ const Footer = () => {
           </h2>
           
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-90">
-            {/* Using text/div placeholders for logos; swap with <img> tags for production */}
-            <div className="text-5xl font-bold tracking-tighter">T</div>
-            <div className="w-16 h-10 bg-white/20 rounded-sm"></div> {/* Adidas Placeholder */}
-            <div className="text-3xl font-semibold tracking-tight">Allianz (II)</div>
-            <div className="flex gap-1">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-8 h-8 border-2 border-white rounded-full -ml-2 first:ml-0" />
-              ))}
-            </div> {/* Audi Placeholder */}
+  
+            <Image alt='Kebab Kings' src="/imgs/kebabkings.png" width={812/2} height={193/2} />
+            <Image alt='Breakroom Cafe' src="/imgs/breakroom.png" width={507/2} height={351/2}/>
+   
           </div>
         </section>
 
