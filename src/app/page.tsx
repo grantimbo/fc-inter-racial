@@ -4,15 +4,15 @@ import PlayersSection from "./components/players";
 import Footer from "./components/footer";
 import HeroSlider from "./components/slider";
 import OurStory from "./components/our-story";
-import FacebookFeed from "./components/facebook-feed";
+import News from "./components/news";
 
 export default function Home() {
   return (
     <div>
       <Header/>
       <HeroSlider/>
-      <FacebookFeed/>
       <PlayersSection/>
+      <News/>
       <OurStory/>
       <Footer/>
     </div>
