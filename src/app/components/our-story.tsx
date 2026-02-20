@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const OurStory = () => {
   return (
-    <section className="bg-white py-20 px-6 font-sans">
+    <section id="our-story" className="bg-white py-20 px-6 font-sans">
       <div className="max-w-4xl mx-auto text-center">
         {/* Main Section Title */}
         <h2 className="text-6xl md:text-7xl font-black mb-16 tracking-tight text-black">

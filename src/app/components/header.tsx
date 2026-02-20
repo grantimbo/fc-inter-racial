@@ -24,7 +24,7 @@ const Header = () => {
             <Link href="#players" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
               Players
             </Link>
-            <Link href="#story" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
+            <Link href="#our-story" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
               Our Story
             </Link>
           </nav>
