@@ -4,6 +4,7 @@ import PlayersSection from "./components/players";
 import Footer from "./components/footer";
 import HeroSlider from "./components/slider";
 import OurStory from "./components/our-story";
+import News from "./components/news";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Header/>
       <HeroSlider/>
       <PlayersSection/>
+      <News/>
       <OurStory/>
       <Footer/>
     </div>
