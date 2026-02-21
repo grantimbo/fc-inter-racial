@@ -12,7 +12,7 @@ const Header = () => {
             <div className="relative w-20 h-20 flex overflow-hidden items-center justify-center rounded-full">
               <Image alt='Inter Racial' src="/imgs/logo.jpg" width={100} height={100}/>
             </div>
-            <h1 className="text-3xl font-black tracking-tight text-black font-sans">
+            <h1 className="text-4xl font-black tracking-wide text-black font-narrow">
               FC Inter Racial
             </h1>
           </div>

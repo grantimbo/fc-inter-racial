@@ -1,6 +1,6 @@
 import Script from 'next/script';
 import type { Metadata } from "next";
-import { Poppins, Geist_Mono } from "next/font/google";
+import { Poppins, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
 
@@ -10,8 +10,9 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bebbas = Bebas_Neue({
+  variable: "--font-bebas",
+  weight: ["400"],
   subsets: ["latin"],
 });
 
@@ -27,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${poppins.variable} ${bebbas.variable} antialiased`}>
         {/* 1. The fb-root div must be at the top level of the body */}
         <div id="fb-root"></div>
 
