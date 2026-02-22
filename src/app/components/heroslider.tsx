@@ -8,7 +8,7 @@ import {  SanityImage} from '@/lib/types';
 export interface Slide {
   _id: string;
   title: string;
-  subtitle: string;
+  description: string;
   image?: SanityImage;
 }
 
@@ -20,14 +20,14 @@ export default function HeroSliderClient({ slides }: { slides: Slide[] }) {
 
   useEffect(() => {
     if (slides.length <= 1) return;
-    const timer = setInterval(nextSlide, 5000);
+    const timer = setInterval(nextSlide, 10000);
     return () => clearInterval(timer);
   }, [current, slides.length]);
 
   if (!slides?.length) return null;
 
   return (
-    <section className="relative w-full h-[600px] overflow-hidden bg-black">
+    <section className="relative w-full h-150 overflow-hidden bg-black">
       {slides.map((slide, index) => (
         <div
           key={slide._id}
@@ -41,23 +41,20 @@ export default function HeroSliderClient({ slides }: { slides: Slide[] }) {
               backgroundImage: `url(${slide.image ? urlFor(slide.image).width(1920).url() : ''})` 
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-red-900/40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-r from-black via-black/40 to-red-900/40" />
+            <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
           </div>
 
           <div className="relative h-full max-w-7xl mx-auto px-8 flex flex-col justify-center z-20">
-            <p className="text-red-600 font-black tracking-[0.3em] mb-2 text-sm md:text-base">
-              {slide.subtitle}
-            </p>
-            <h2 className="text-white text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">
+   
+            <h2 className="text-white text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none">
               {slide.title?.split(' ')[0]} <br />
               <span className="text-transparent" style={{ WebkitTextStroke: '1px white' }}>
                 {slide.title?.split(' ').slice(1).join(' ')}
               </span>
             </h2>
-            <button className="mt-8 w-fit bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-10 transition-transform hover:scale-105 uppercase tracking-widest text-sm">
-              View Squad
-            </button>
+            <p className='mt-5 ml-2'>{slide.description}</p>
+
           </div>
         </div>
       ))}

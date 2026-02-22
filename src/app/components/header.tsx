@@ -9,10 +9,10 @@ const Header = () => {
         <div className="flex justify-between items-center h-24">
           
           <div className="flex items-center gap-4">
-            <div className="relative w-20 h-20 flex overflow-hidden items-center justify-center rounded-full">
+            <div className="relative w-22 h-22 flex overflow-hidden items-center justify-center rounded-full">
               <Image alt='Inter Racial' src="/imgs/logo.jpg" width={100} height={100}/>
             </div>
-            <h1 className="text-4xl font-black tracking-wide text-black font-narrow">
+            <h1 className="text-3xl font-black tracking-tight text-black ">
               FC Inter Racial
             </h1>
           </div>

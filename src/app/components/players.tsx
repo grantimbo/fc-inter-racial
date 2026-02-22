@@ -29,23 +29,23 @@ const PlayerThumbnail = ({ profilePicture, name }: PlayerProps) => {
       // TS now knows image.alt exists or might be undefined
       alt={profilePicture.alt || name} 
       loading="lazy"
+      className='object-cover'
     />
   );
 };
 
 // --- Sub-Components ---
 const PlayerCard = ({ player }: { player: Player }) => (
-  <div className="relative aspect-[4/5] overflow-hidden bg-gray-200 group rounded-md">
-    <div className='text-black'>  {player.name}</div>
-    <div className="w-full h-full bg-gradient-to-br from-gray-100 via-gray-300 to-gray-100 flex items-end">
+  <div className="relative aspect-4/5 overflow-hidden bg-gray-200 group rounded-md">
+    <div className="w-full h-full bg-linear-to-br from-gray-100 via-gray-300 to-gray-100 flex items-end">
       <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-      {player.profilePicture && (
-          <PlayerThumbnail profilePicture={player.profilePicture} name={player.name} />
-      )}
-      asdfadf
-      <p className="text-white p-4 font-bold uppercase tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">
+     
+      <p className="text-white p-3 font-bold uppercase tracking-tighter absolute w-full bg-linear-to-t from-gray-500 to-transparent">
         {player.name}
       </p>
+       {player.profilePicture && (
+          <PlayerThumbnail profilePicture={player.profilePicture} name={player.name} />
+      )}
     </div>
   </div>
 );
@@ -55,7 +55,7 @@ const PlayerGroup = ({ title, id, players }: { title: string; id: string; player
   console.log(players)
   return (
     <div className="mb-16">
-      <h3 id={id} className="text-2xl font-bold mb-8 tracking-widest text-gray-800 uppercase">
+      <h3 id={id} className="text-xl md:text-2xl font-bold mb-8 tracking-widest text-gray-800 uppercase">
         {title}
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -89,12 +89,12 @@ export default async function PlayersSection() {
   return (
     <section className="bg-white py-16 px-4 font-sans" id="players">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-6xl font-black mb-12 tracking-tight text-black">
+        <h2 className="text-4xl md:text-6xl font-black mb-12 tracking-tight text-black">
           Players
         </h2>
 
         {/* Navigation Links */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
+        <div className="hidden flex-md flex-wrap justify-center gap-3 mb-16">
           {categories.map((cat) => (
             <Link
               href={`#${cat.id}`}
