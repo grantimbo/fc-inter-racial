@@ -85,7 +85,7 @@ export default async function PlayersSection() {
 
 
   return (
-    <section className="bg-white py-16 px-4 font-sans" id="players">
+    <section className="bg-white py-16 px-4 font-sans scroll-mt-16 md:scroll-mt-20" id="players">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl md:text-6xl font-black mb-12 tracking-tight text-black">
           Players

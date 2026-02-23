@@ -1,7 +1,5 @@
 import { client } from '@/lib/sanity'
-import { PortableText } from '@portabletext/react';
-import { urlFor } from '@/lib/sanity.image';
-import { Player, SanityImage } from '@/lib/types';
+import { Player } from '@/lib/types';
 import Header from '../../components/header';
 
 // Update the type to reflect that params is a Promise

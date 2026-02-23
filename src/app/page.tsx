@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Header from "./components/header";
 import PlayersSection from "./components/players";
 import Footer from "./components/footer";
@@ -8,7 +7,7 @@ import News from "./components/news";
 
 export default function Home() {
   return (
-    <div>
+    <div className="pt-16 md:pt-20">
       <Header/>
       <HeroSlider/>
       <PlayersSection/>
