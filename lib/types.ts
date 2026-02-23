@@ -17,6 +17,10 @@ export interface Player {
   _type: 'player'; // Good practice to include the document type
   name: string;
   position?: string;
+  slug: {
+    _type: 'slug';
+    current: string;
+  };
   
   // Images are objects, not strings (URLs)
   image?: SanityImage; 
