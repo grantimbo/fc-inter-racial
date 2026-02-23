@@ -36,7 +36,7 @@ const PlayerThumbnail = ({ profilePicture, name }: PlayerProps) => {
 
 // --- Sub-Components ---
 const PlayerCard = ({ player }: { player: Player }) => (
-  <div className="relative aspect-4/5 overflow-hidden bg-gray-200 group rounded-md">
+  <a href={`/players/${player.slug.current}`} className="relative aspect-4/5 overflow-hidden bg-gray-200 group rounded-md">
     <div className="w-full h-full bg-linear-to-br from-gray-100 via-gray-300 to-gray-100 flex items-end">
       <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
      
@@ -47,12 +47,11 @@ const PlayerCard = ({ player }: { player: Player }) => (
           <PlayerThumbnail profilePicture={player.profilePicture} name={player.name} />
       )}
     </div>
-  </div>
+  </a>
 );
 
 const PlayerGroup = ({ title, id, players }: { title: string; id: string; players: Player[] }) => {
   if (players.length === 0) return null;
-  console.log(players)
   return (
     <div className="mb-16">
       <h3 id={id} className="text-xl md:text-2xl font-bold mb-8 tracking-widest text-gray-800 uppercase">
@@ -83,7 +82,6 @@ export default async function PlayersSection() {
     `*[_type == "player"] | order(name asc)`
   );
 
-  console.log(players)
 
 
   return (
