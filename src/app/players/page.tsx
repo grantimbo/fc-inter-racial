@@ -4,7 +4,7 @@ import Footer from "../components/footer";
 
 export default function PlayersPage() {
   return (
-    <div>
+    <div className="pt-16 md:pt-20">
       <Header/>
       <PlayersSection/>
       <Footer/>

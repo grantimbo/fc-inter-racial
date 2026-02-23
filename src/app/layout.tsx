@@ -2,6 +2,7 @@ import Script from 'next/script';
 import type { Metadata } from "next";
 import { Poppins, Bebas_Neue } from "next/font/google";
 import "./globals.css";
+import HashScroll from "./components/hash-scroll";
 
 
 const poppins = Poppins({
@@ -31,6 +32,8 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${bebbas.variable} antialiased`}>
         {/* 1. The fb-root div must be at the top level of the body */}
         <div id="fb-root"></div>
+
+        <HashScroll />
 
         {children}
 

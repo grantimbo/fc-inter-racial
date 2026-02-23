@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => {
@@ -21,6 +24,29 @@ const Header = () => {
     "fixed top-0 left-0 right-0 z-50 w-full",
     scrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-white",
   ].join(" ");
+
+  const smoothScrollToId = (id: string, retries = 20) => {
+    const target = document.getElementById(id);
+    if (!target) {
+      if (retries > 0) {
+        setTimeout(() => smoothScrollToId(id, retries - 1), 100);
+      }
+      return;
+    }
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleSectionClick = (id: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setOpen(false);
+    if (pathname === "/") {
+      smoothScrollToId(id);
+      window.history.replaceState(null, "", `/#${id}`);
+      return;
+    }
+    router.push(`/#${id}`);
+    setTimeout(() => smoothScrollToId(id), 100);
+  };
 
   return (
     <header className={headerClasses}>
@@ -53,13 +79,21 @@ const Header = () => {
           </button>
 
           <nav className="hidden lg:flex ml-auto space-x-10">
-            <Link href="#news" className="text-base font-medium text-black hover:text-gray-600 transition-colors">
+            <Link
+              href="/#news"
+              className="text-base font-medium text-black hover:text-gray-600 transition-colors"
+              onClick={handleSectionClick("news")}
+            >
               News
             </Link>
-            <Link href="/players" className="text-xl font-medium text-black hover:text-gray-600 transition-colors">
+            <Link href="/players" className="text-base font-medium text-black hover:text-gray-600 transition-colors">
               Players
             </Link>
-            <Link href="#our-story" className="text-base font-medium text-black hover:text-gray-600 transition-colors">
+            <Link
+              href="/#our-story"
+              className="text-base font-medium text-black hover:text-gray-600 transition-colors"
+              onClick={handleSectionClick("our-story")}
+            >
               Our Story
             </Link>
           </nav>
@@ -69,9 +103,9 @@ const Header = () => {
           <div className="md:hidden pb-4">
             <nav className="flex flex-col space-y-2">
               <Link
-                href="#news"
+                href="/#news"
                 className="py-2 text-base font-medium text-black hover:text-gray-600 transition-colors"
-                onClick={() => setOpen(false)}
+                onClick={handleSectionClick("news")}
               >
                 News
               </Link>
@@ -83,9 +117,9 @@ const Header = () => {
                 Players
               </Link>
               <Link
-                href="#our-story"
+                href="/#our-story"
                 className="py-2 text-base font-medium text-black hover:text-gray-600 transition-colors"
-                onClick={() => setOpen(false)}
+                onClick={handleSectionClick("our-story")}
               >
                 Our Story
               </Link>

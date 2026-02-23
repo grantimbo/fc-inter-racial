@@ -1,3 +1,5 @@
+import FacebookEmbed from "./facebook-embed";
+
 interface IPhoneProps {
   color?: string;
   children?: React.ReactNode;
@@ -38,21 +40,7 @@ export default function News() {
       <div className="max-w-6xl mx-auto text-center">
         <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:justify-center md:gap-12">
           <IPhone17Template>
-            <div 
-              className="fb-page" 
-              data-href="https://www.facebook.com/fcinterracial" 
-              data-tabs="timeline" 
-              data-width="300px" 
-              data-height="600px" 
-              data-small-header="false" 
-              data-adapt-container-width="true" 
-              data-hide-cover="true" 
-              data-show-facepile="true"
-            >
-              <blockquote cite="https://www.facebook.com/fcinterracial" className="fb-xfbml-parse-ignore">
-                <a href="https://www.facebook.com/fcinterracial">FC Inter Racial</a>
-              </blockquote>
-            </div>
+            <FacebookEmbed />
           </IPhone17Template>
 
           <div className="text-center md:text-left max-w-xl">
