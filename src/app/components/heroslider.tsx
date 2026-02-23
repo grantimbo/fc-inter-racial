@@ -20,9 +20,11 @@ export default function HeroSliderClient({ slides }: { slides: Slide[] }) {
 
   useEffect(() => {
     if (slides.length <= 1) return;
-    const timer = setInterval(nextSlide, 10000);
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }, 10000);
     return () => clearInterval(timer);
-  }, [current, slides.length]);
+  }, [slides.length]);
 
   if (!slides?.length) return null;
 
