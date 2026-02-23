@@ -1,6 +1,8 @@
-import { client } from '@/lib/sanity'
-import { Player } from '@/lib/types';
-import Header from '../../components/header';
+import { client } from "@/lib/sanity";
+import { Player } from "@/lib/types";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import PlayerDetails from "../../components/player-details";
 
 // Update the type to reflect that params is a Promise
 export type ParamsType = {
@@ -16,7 +18,7 @@ export default async function PlayerProfile({ params }: ParamsType) {
   // 2. Using parameterized query (Security: Avoid string interpolation)
   const player = await client.fetch<Player[]>(
     `*[_type == "player" && slug.current == $slug]`,
-    { slug }
+    { slug },
   );
 
   if (!player || player.length === 0) return <div>Player not found</div>;
@@ -24,11 +26,10 @@ export default async function PlayerProfile({ params }: ParamsType) {
   const playerData = player[0];
 
   return (
-
     <div>
-      <Header/>
-      {/* // TODO: make a player card */}
-      <h1>{playerData.name}</h1>
+      <Header />
+      <PlayerDetails player={playerData} />
+      <Footer />
     </div>
   );
 }
