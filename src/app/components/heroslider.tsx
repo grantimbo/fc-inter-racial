@@ -52,7 +52,7 @@ export default function HeroSliderClient({ slides }: { slides: HeroSlide[] }) {
                 {slide.title?.split(" ").slice(1).join(" ")}
               </span>
             </h2>
-            <p className="mt-5 ml-2">{slide.description}</p>
+            <p className="mt-5 ml-2 text-white">{slide.description}</p>
           </div>
         </div>
       ))}
