@@ -50,10 +50,17 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
       <div className="grid w-full max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-2">
         {/* Left Side: Player Image */}
         <div className="relative flex justify-center">
-          {player.profilePicture && (
+          {player.profilePicture ? (
             <PlayerThumbnail
               profilePicture={player.profilePicture}
               name={player.name}
+            />
+          ) : (
+            <Image
+              width={896}
+              height={1120}
+              alt="Unknown player"
+              src="/imgs/profile-placeholder.png"
             />
           )}
         </div>
