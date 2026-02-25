@@ -5,6 +5,7 @@ import Image from "next/image";
 import { urlFor } from "@/lib/sanity.image";
 import { Player, SanityImage } from "@/lib/types";
 import { PortableText } from "@portabletext/react";
+import Breadcrumbs from "./breadcrumbs";
 
 interface PlayerProps {
   profilePicture: SanityImage;
@@ -46,8 +47,16 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
   const [activeTab, setActiveTab] = useState("profile");
 
   return (
-    <div className="pt-24 md:pt-28 flex min-h-screen items-center justify-center bg-[#dde1e4] p-4 font-sans text-black">
-      <div className="grid w-full max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-2">
+    <div className="min-h-[60vh] bg-[#dde1e4] p-4 py-24 font-sans text-black md:pt-30">
+      <div className="mx-auto w-full max-w-6xl">
+        <Breadcrumbs
+          currentPage={player.name}
+          parentPage="Players"
+          parentPageLink="/players"
+        />
+      </div>
+
+      <div className="mx-auto mb-12 grid w-full max-w-6xl grid-cols-1 items-start gap-8 md:grid-cols-2">
         {/* Left Side: Player Image */}
         <div className="relative flex justify-center">
           {player.profilePicture ? (
@@ -76,39 +85,47 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
             <h1 className="text-6xl leading-tight font-bold tracking-tight">
               {player.name}
             </h1>
-            <p className="mt-1 text-xl font-bold tracking-widest uppercase">
+            <p className="mt-3 text-xl font-bold tracking-widest uppercase">
               {getPositionLabel(player.position)}
             </p>
           </header>
 
           {/* Social Links */}
-          <div className="flex gap-3">
-            <a
-              href="https://facebook.com/fcinterracial"
-              target="_blank"
-              className="transition-opacity hover:opacity-70"
-            >
-              <Image
-                alt="Facebook"
-                src="/imgs/facebook.svg"
-                width={40}
-                height={40}
-              />
-            </a>
+          {(player.facebook || player.instagram) && (
+            <div className="flex gap-3">
+              {player.facebook && (
+                <a
+                  href={player.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                >
+                  <Image
+                    alt="Facebook"
+                    src="/imgs/facebook.svg"
+                    width={40}
+                    height={40}
+                  />
+                </a>
+              )}
 
-            <a
-              href="https://www.instagram.com/grntx"
-              target="_blank"
-              className="transition-opacity hover:opacity-70"
-            >
-              <Image
-                alt="Facebook"
-                src="/imgs/instagram.svg"
-                width={40}
-                height={40}
-              />
-            </a>
-          </div>
+              {player.instagram && (
+                <a
+                  href={player.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                >
+                  <Image
+                    alt="Instagram"
+                    src="/imgs/instagram.svg"
+                    width={40}
+                    height={40}
+                  />
+                </a>
+              )}
+            </div>
+          )}
 
           {/* Tabs */}
           <div className="flex gap-4 pt-4">

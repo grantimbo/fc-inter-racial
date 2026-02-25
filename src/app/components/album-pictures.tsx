@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { urlFor } from "@/lib/sanity.image";
 import { Album } from "@/lib/types";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import Breadcrumbs from "./breadcrumbs";
 
 interface AlbumDetailsProps {
   album: Album;
@@ -53,7 +54,12 @@ export default function AlbumPictures({ album }: AlbumDetailsProps) {
 
   return (
     <section className="scroll-mt-36 bg-white px-4 py-36 font-sans md:scroll-mt-20">
-      <div className="mx-auto max-w-6xl text-center">
+      <div className="mx-auto max-w-6xl text-left">
+        <Breadcrumbs
+          currentPage={album.title}
+          parentPage="Gallery"
+          parentPageLink="/gallery"
+        />
         <h2 className="mb-4 text-4xl font-black tracking-tight text-black md:text-6xl">
           {album.title}
         </h2>
