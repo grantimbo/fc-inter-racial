@@ -50,3 +50,16 @@ export interface HeroSlide {
   description: string;
   image?: SanityImage;
 }
+
+export interface Album {
+  _id: string;
+  _type: "album";
+  title: string;
+  slug: {
+    _type: "slug";
+    current: string;
+  };
+  description?: string;
+  coverImage: SanityImage;
+  images: SanityImage[];
+}
