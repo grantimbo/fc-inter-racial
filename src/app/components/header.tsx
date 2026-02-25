@@ -8,22 +8,62 @@ import { usePathname, useRouter } from "next/navigation";
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 0);
+
+      // Active section logic for home page
+      if (pathname === "/") {
+        const sections = ["news", "our-story"];
+        let currentSection = "";
+        
+        // Add a buffer for the fixed header
+        const scrollPosition = window.scrollY + 150;
+
+        for (const section of sections) {
+          const element = document.getElementById(section);
+          if (element) {
+            const offsetTop = element.offsetTop;
+            const offsetHeight = element.offsetHeight;
+            if (
+              scrollPosition >= offsetTop &&
+              scrollPosition < offsetTop + offsetHeight
+            ) {
+              currentSection = section;
+            }
+          }
+        }
+        setActiveSection(currentSection);
+      } else {
+        setActiveSection("");
+      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   const headerClasses = [
     "fixed top-0 left-0 right-0 z-50 w-full",
     scrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-white",
   ].join(" ");
+
+  const getLinkClass = (path: string, hash?: string) => {
+    const baseClass = "text-base font-medium transition-colors";
+    let isActive = false;
+
+    if (path === "/players") {
+       isActive = pathname.startsWith("/players");
+    } else if (path === "/" && hash) {
+       isActive = pathname === "/" && activeSection === hash;
+    }
+
+    return `${baseClass} ${isActive ? "text-[#CC6A4B] font-bold" : "text-black hover:text-gray-600"}`;
+  };
 
   const smoothScrollToId = (id: string, retries = 20) => {
     const target = document.getElementById(id);
@@ -81,17 +121,17 @@ const Header = () => {
           <nav className="hidden lg:flex ml-auto space-x-10">
             <Link
               href="/#news"
-              className="text-base font-medium text-black hover:text-gray-600 transition-colors"
+              className={getLinkClass("/", "news")}
               onClick={handleSectionClick("news")}
             >
               News
             </Link>
-            <Link href="/players" className="text-base font-medium text-black hover:text-gray-600 transition-colors">
+            <Link href="/players" className={getLinkClass("/players")}>
               Players
             </Link>
             <Link
               href="/#our-story"
-              className="text-base font-medium text-black hover:text-gray-600 transition-colors"
+              className={getLinkClass("/", "our-story")}
               onClick={handleSectionClick("our-story")}
             >
               Our Story
@@ -104,21 +144,21 @@ const Header = () => {
             <nav className="flex flex-col space-y-2">
               <Link
                 href="/#news"
-                className="py-2 text-base font-medium text-black hover:text-gray-600 transition-colors"
+                className={`py-2 ${getLinkClass("/", "news")}`}
                 onClick={handleSectionClick("news")}
               >
                 News
               </Link>
               <Link
-                href="#players"
-                className="py-2 text-base font-medium text-black hover:text-gray-600 transition-colors"
+                href="/players"
+                className={`py-2 ${getLinkClass("/players")}`}
                 onClick={() => setOpen(false)}
               >
                 Players
               </Link>
               <Link
                 href="/#our-story"
-                className="py-2 text-base font-medium text-black hover:text-gray-600 transition-colors"
+                className={`py-2 ${getLinkClass("/", "our-story")}`}
                 onClick={handleSectionClick("our-story")}
               >
                 Our Story
