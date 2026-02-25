@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { client } from "@/lib/sanity";
 import { Player } from "@/lib/types";
 import Header from "../../components/header";
@@ -10,6 +11,25 @@ export type ParamsType = {
     slug: string;
   }>;
 };
+
+export async function generateMetadata({ params }: ParamsType): Promise<Metadata> {
+  const { slug } = await params;
+
+  const player = await client.fetch<Player[]>(
+    `*[_type == "player" && slug.current == $slug]`,
+    { slug },
+  );
+
+  if (!player || player.length === 0) {
+    return {
+      title: "Inter Racial Football Club - Player",
+    };
+  }
+
+  return {
+    title: `Inter Racial Football Club - ${player[0].name}`,
+  };
+}
 
 export default async function PlayerProfile({ params }: ParamsType) {
   // 1. Unwrapping the params promise

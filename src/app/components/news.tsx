@@ -21,14 +21,21 @@ const IPhone17Template: React.FC<IPhoneProps> = ({ color = "#2c2c2e", children }
         {/* Buttons */}
         <rect x="46" y="140" width="4" height="30" rx="2" fill="#444"/>
         <rect x="350" y="210" width="4" height="90" rx="2" fill="#444"/>
-
-        {/* ForeignObject allows you to put HTML/React inside the SVG screen */}
-        <foreignObject x="65" y="35" width="270" height="590">
-          <div style={{ width: '100%', height: '100%', borderRadius: '42px', overflow: 'hidden',}}>
-            {children}
-          </div>
-        </foreignObject>
       </svg>
+
+      {/* Content Overlay */}
+      <div 
+        className="absolute overflow-hidden"
+        style={{
+          top: '5.15%',
+          left: '16.25%',
+          width: '67.5%',
+          height: '86.76%',
+          borderRadius: '15.5% / 7.1%'
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

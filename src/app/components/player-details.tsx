@@ -46,7 +46,7 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
   const [activeTab, setActiveTab] = useState("profile");
 
   return (
-    <div className="mt-16 flex min-h-screen items-center justify-center bg-[#dde1e4] p-4 font-sans text-black">
+    <div className="pt-24 md:pt-28 flex min-h-screen items-center justify-center bg-[#dde1e4] p-4 font-sans text-black">
       <div className="grid w-full max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-2">
         {/* Left Side: Player Image */}
         <div className="relative flex justify-center">
