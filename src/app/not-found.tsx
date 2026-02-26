@@ -1,5 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
+import { siteTitle } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: `404 Out of bounds - ${siteTitle}`,
+};
 
 export default function notFound() {
   return (
