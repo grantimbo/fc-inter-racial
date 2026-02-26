@@ -31,11 +31,10 @@ const getPositionLabel = (filter: string | undefined): string => {
 
 const PlayerThumbnail = ({ profilePicture, name }: PlayerProps) => {
   return (
-    <img
-      src={urlFor(profilePicture)
-        .width(600) // Increase this if it looks blurry
-        .auto("format")
-        .url()}
+    <Image
+      width={896}
+      height={1120}
+      src={urlFor(profilePicture).width(896).auto("format").url()}
       alt={profilePicture.alt || name}
       loading="lazy"
       className="object-cover"

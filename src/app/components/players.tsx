@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity.image";
-import { Player, SanityImage } from "@/lib/types";
+import { Player } from "@/lib/types";
 import Breadcrumbs from "./breadcrumbs";
 
 // --- Types ---
@@ -14,33 +14,13 @@ interface Category {
   filter: Position;
 }
 
-interface PlayerProps {
-  profilePicture: SanityImage;
-  name: string;
-}
-
-const PlayerThumbnail = ({ profilePicture, name }: PlayerProps) => {
-  return (
-    <img
-      src={urlFor(profilePicture)
-        .width(600) // Increase this if it looks blurry
-        .auto("format") // Let Sanity decide the best format automatically
-        .url()}
-      // TS now knows image.alt exists or might be undefined
-      alt={profilePicture.alt || name}
-      loading="lazy"
-      className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
-    />
-  );
-};
-
 // --- Sub-Components ---
 const PlayerCard = ({ player }: { player: Player }) => (
   <a
     href={`/players/${player.slug.current}`}
     className="group relative aspect-4/5 overflow-hidden rounded-md bg-gray-200 transition-all hover:ring-2 hover:ring-gray-600"
   >
-    <div className="flex h-full w-full items-end bg-linear-to-br from-gray-100 via-gray-300 to-gray-100">
+    <div className="flex h-full w-full items-end bg-linear-to-br">
       <div className="absolute inset-0 z-10 bg-black/10 transition-colors duration-500 group-hover:bg-transparent" />
 
       <p className="absolute z-20 w-full bg-linear-to-t from-gray-500 to-transparent p-2 pt-5 font-bold tracking-tighter text-white uppercase">
@@ -48,9 +28,11 @@ const PlayerCard = ({ player }: { player: Player }) => (
       </p>
 
       {player.profilePicture ? (
-        <PlayerThumbnail
-          profilePicture={player.profilePicture}
-          name={player.name}
+        <Image
+          fill
+          alt={player.name}
+          src={urlFor(player.profilePicture).width(300).auto("format").url()}
+          className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       ) : (
         <Image

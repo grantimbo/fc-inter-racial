@@ -5,6 +5,7 @@ import { urlFor } from "@/lib/sanity.image";
 import { Album } from "@/lib/types";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Breadcrumbs from "./breadcrumbs";
+import Image from "next/image";
 
 interface AlbumDetailsProps {
   album: Album;
@@ -53,7 +54,7 @@ export default function AlbumPictures({ album }: AlbumDetailsProps) {
   }, [selectedIndex, handleNext, handlePrev]);
 
   return (
-    <section className="scroll-mt-36 bg-white px-4 md:py-36 py-20 font-sans md:scroll-mt-20">
+    <section className="scroll-mt-36 bg-white px-4 py-20 font-sans md:scroll-mt-20 md:py-36">
       <div className="mx-auto max-w-6xl text-left">
         <Breadcrumbs
           currentPage={album.title}
@@ -70,9 +71,11 @@ export default function AlbumPictures({ album }: AlbumDetailsProps) {
             <div
               key={idx}
               onClick={() => setSelectedIndex(idx)}
-              className="group relative cursor-pointer overflow-hidden rounded shadow-lg transition-all hover:ring-2 hover:ring-black"
+              className="group relative cursor-pointer overflow-hidden rounded bg-gray-200 shadow-lg transition-all hover:ring-2 hover:ring-black"
             >
-              <img
+              <Image
+                width={400}
+                height={400}
                 src={urlFor(img).width(400).height(400).fit("crop").url()}
                 alt={`Gallery item ${idx + 1}`}
                 className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"

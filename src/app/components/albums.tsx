@@ -2,6 +2,7 @@ import { Album } from "@/lib/types";
 import { urlFor } from "@/lib/sanity.image";
 import Link from "next/link";
 import Breadcrumbs from "./breadcrumbs";
+import Image from "next/image";
 
 export default async function Albums({ albums }: { albums: Album[] }) {
   return (
@@ -18,9 +19,10 @@ export default async function Albums({ albums }: { albums: Album[] }) {
             <Link
               key={album._id}
               href={`/gallery/${album.slug.current}`}
-              className="group relative aspect-square overflow-hidden rounded-lg transition-all hover:ring-2 hover:ring-black"
+              className="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 transition-all hover:ring-2 hover:ring-black"
             >
-              <img
+              <Image
+                fill
                 src={urlFor(album.coverImage).width(600).url()}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 alt={album.title}
