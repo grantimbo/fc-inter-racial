@@ -3,6 +3,7 @@ import Image from "next/image";
 import { client } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity.image";
 import { Player, SanityImage } from "@/lib/types";
+import Breadcrumbs from "./breadcrumbs";
 
 // --- Types ---
 type Position = "CH" | "FW" | "MF" | "DF" | "GK";
@@ -100,7 +101,7 @@ const categories: Category[] = [
 ];
 
 // --- Main Server Component ---
-export default async function PlayersSection() {
+export default async function PlayersSection({ showBreadcrumbs = false }: { showBreadcrumbs?: boolean }) {
   // Fetch data directly in the component
   const players = await client.fetch<Player[]>(
     `*[_type == "player"] | order(name asc)`,
@@ -108,10 +109,15 @@ export default async function PlayersSection() {
 
   return (
     <section
-      className="scroll-mt-16 bg-white px-4 py-16 font-sans md:scroll-mt-20"
+      className="scroll-mt-36 bg-white px-4 md:py-36 py-20 font-sans md:scroll-mt-20"
       id="players"
     >
       <div className="mx-auto max-w-6xl text-center">
+        {showBreadcrumbs && (
+          <div className="text-left">
+            <Breadcrumbs currentPage="Players" />
+          </div>
+        )}
         <h2 className="mb-12 text-4xl font-black tracking-tight text-black md:text-6xl">
           Players
         </h2>

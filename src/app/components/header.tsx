@@ -58,6 +58,10 @@ const Header = () => {
 
     if (path === "/players") {
        isActive = pathname.startsWith("/players");
+    } else if (path === "/gallery") {
+       isActive = pathname.startsWith("/gallery");
+    } else if (path === "/contact") {
+       isActive = pathname === "/contact";
     } else if (path === "/" && hash) {
        isActive = pathname === "/" && activeSection === hash;
     }
@@ -129,12 +133,18 @@ const Header = () => {
             <Link href="/players" className={getLinkClass("/players")}>
               Players
             </Link>
+            <Link href="/gallery" className={getLinkClass("/gallery")}>
+              Gallery
+            </Link>
             <Link
               href="/#our-story"
               className={getLinkClass("/", "our-story")}
               onClick={handleSectionClick("our-story")}
             >
               Our Story
+            </Link>
+            <Link href="/contact" className={getLinkClass("/contact")}>
+              Contact
             </Link>
           </nav>
         </div>
@@ -157,11 +167,25 @@ const Header = () => {
                 Players
               </Link>
               <Link
+                href="/gallery"
+                className={`py-2 ${getLinkClass("/gallery")}`}
+                onClick={() => setOpen(false)}
+              >
+                Gallery
+              </Link>
+              <Link
                 href="/#our-story"
                 className={`py-2 ${getLinkClass("/", "our-story")}`}
                 onClick={handleSectionClick("our-story")}
               >
                 Our Story
+              </Link>
+              <Link
+                href="/contact"
+                className={`py-2 ${getLinkClass("/contact")}`}
+                onClick={() => setOpen(false)}
+              >
+                Contact
               </Link>
             </nav>
           </div>
