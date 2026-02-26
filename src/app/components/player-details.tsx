@@ -7,10 +7,6 @@ import { Player, SanityImage } from "@/lib/types";
 import { PortableText } from "@portabletext/react";
 import Breadcrumbs from "./breadcrumbs";
 
-interface PlayerProps {
-  profilePicture: SanityImage;
-  name: string;
-}
 interface PlayerDetailsProps {
   player: Player;
 }
@@ -29,19 +25,6 @@ const getPositionLabel = (filter: string | undefined): string => {
   return positionMap[filter] || "N/A";
 };
 
-const PlayerThumbnail = ({ profilePicture, name }: PlayerProps) => {
-  return (
-    <Image
-      width={896}
-      height={1120}
-      src={urlFor(profilePicture).width(896).auto("format").url()}
-      alt={profilePicture.alt || name}
-      loading="lazy"
-      className="object-cover"
-    />
-  );
-};
-
 export default function PlayerDetails({ player }: PlayerDetailsProps) {
   const [activeTab, setActiveTab] = useState("profile");
 
@@ -57,11 +40,18 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
 
       <div className="mx-auto mb-12 grid w-full max-w-6xl grid-cols-1 items-start gap-8 md:grid-cols-2">
         {/* Left Side: Player Image */}
-        <div className="relative flex justify-center">
+        <div className="relative flex aspect-4/5 justify-center overflow-hidden bg-[#dbdadf]">
           {player.profilePicture ? (
-            <PlayerThumbnail
-              profilePicture={player.profilePicture}
-              name={player.name}
+            <Image
+              width={600}
+              height={700}
+              src={urlFor(player.profilePicture)
+                .width(600)
+                .auto("format")
+                .url()}
+              alt={player.profilePicture.alt || player.name}
+              loading="lazy"
+              className="object-cover"
             />
           ) : (
             <Image
@@ -69,6 +59,7 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
               height={1120}
               alt="Unknown player"
               src="/imgs/profile-placeholder.png"
+              className="object-cover"
             />
           )}
         </div>
