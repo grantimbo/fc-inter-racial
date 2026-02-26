@@ -2,6 +2,12 @@ import ContactForm from "../components/contact-form";
 import Breadcrumbs from "../components/breadcrumbs";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { siteTitle } from "@/lib/seo";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Contact - ${siteTitle}`,
+};
 
 export default function ContactPage() {
   return (
