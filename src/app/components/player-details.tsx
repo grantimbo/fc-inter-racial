@@ -131,7 +131,7 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
           <div className="flex gap-4 pt-4">
             <button
               onClick={() => setActiveTab("profile")}
-              className={`rounded-lg border-2 px-8 py-2 font-bold shadow-sm transition-all ${
+              className={`cursor-pointer rounded-lg border-2 px-8 py-2 font-bold shadow-sm transition-all ${
                 activeTab === "profile"
                   ? "border-white bg-white text-black"
                   : "border-black bg-transparent text-black hover:bg-black hover:text-white"
@@ -141,7 +141,7 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
             </button>
             <button
               onClick={() => setActiveTab("bio")}
-              className={`rounded-lg border-2 px-8 py-2 font-bold shadow-sm transition-all ${
+              className={`cursor-pointer rounded-lg border-2 px-8 py-2 font-bold shadow-sm transition-all ${
                 activeTab === "bio"
                   ? "border-white bg-white text-black"
                   : "border-black bg-transparent text-black hover:bg-black hover:text-white"

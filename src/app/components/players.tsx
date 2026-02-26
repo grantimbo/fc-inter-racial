@@ -29,7 +29,7 @@ const PlayerThumbnail = ({ profilePicture, name }: PlayerProps) => {
       // TS now knows image.alt exists or might be undefined
       alt={profilePicture.alt || name}
       loading="lazy"
-      className="object-cover"
+      className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
     />
   );
 };
@@ -38,12 +38,12 @@ const PlayerThumbnail = ({ profilePicture, name }: PlayerProps) => {
 const PlayerCard = ({ player }: { player: Player }) => (
   <a
     href={`/players/${player.slug.current}`}
-    className="group relative aspect-4/5 overflow-hidden rounded-md bg-gray-200"
+    className="group relative aspect-4/5 overflow-hidden rounded-md bg-gray-200 transition-all hover:ring-2 hover:ring-gray-600"
   >
     <div className="flex h-full w-full items-end bg-linear-to-br from-gray-100 via-gray-300 to-gray-100">
-      <div className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent" />
+      <div className="absolute inset-0 z-10 bg-black/10 transition-colors duration-500 group-hover:bg-transparent" />
 
-      <p className="absolute w-full bg-linear-to-t from-gray-500 to-transparent p-3 font-bold tracking-tighter text-white uppercase">
+      <p className="absolute z-20 w-full bg-linear-to-t from-gray-500 to-transparent p-2 pt-5 font-bold tracking-tighter text-white uppercase">
         {player.name}
       </p>
 
@@ -58,6 +58,7 @@ const PlayerCard = ({ player }: { player: Player }) => (
           height={1120}
           alt="Unknown player"
           src="/imgs/profile-placeholder.png"
+          className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       )}
     </div>
@@ -101,7 +102,11 @@ const categories: Category[] = [
 ];
 
 // --- Main Server Component ---
-export default async function PlayersSection({ showBreadcrumbs = false }: { showBreadcrumbs?: boolean }) {
+export default async function PlayersSection({
+  showBreadcrumbs = false,
+}: {
+  showBreadcrumbs?: boolean;
+}) {
   // Fetch data directly in the component
   const players = await client.fetch<Player[]>(
     `*[_type == "player"] | order(name asc)`,
@@ -109,7 +114,7 @@ export default async function PlayersSection({ showBreadcrumbs = false }: { show
 
   return (
     <section
-      className="scroll-mt-36 bg-white px-4 md:py-36 py-20 font-sans md:scroll-mt-20"
+      className="scroll-mt-36 bg-white px-4 py-20 font-sans md:scroll-mt-20 md:py-36"
       id="players"
     >
       <div className="mx-auto max-w-6xl text-center">

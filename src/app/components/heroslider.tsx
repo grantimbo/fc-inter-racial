@@ -24,7 +24,7 @@ export default function HeroSliderClient({ slides }: { slides: HeroSlide[] }) {
   if (!slides?.length) return null;
 
   return (
-    <section className="relative h-150 w-full overflow-hidden bg-black">
+    <section className="relative mt-16 h-150 w-full scroll-mt-16 overflow-hidden bg-black md:mt-20 md:scroll-mt-20">
       {slides.map((slide, index) => (
         <div
           key={slide._id}
