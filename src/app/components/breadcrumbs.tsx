@@ -2,8 +2,8 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 interface BreadcrumbsProps {
-  parentPage: string;
-  parentPageLink: string;
+  parentPage?: string;
+  parentPageLink?: string;
   currentPage: string;
 }
 
@@ -31,17 +31,21 @@ export default function Breadcrumbs({
       />
 
       {/* Parent Page (e.g., Gallery or Players) */}
-      <Link
-        href={parentPageLink}
-        className="whitespace-nowrap text-gray-500 transition-colors hover:text-gray-700"
-      >
-        {parentPage}
-      </Link>
+      {parentPage && parentPageLink && (
+        <>
+          <Link
+            href={parentPageLink as string}
+            className="whitespace-nowrap text-gray-500 transition-colors hover:text-gray-700"
+          >
+            {parentPage}
+          </Link>
 
-      <ChevronRight
-        className="h-4 w-4 shrink-0 text-gray-400"
-        strokeWidth={2}
-      />
+          <ChevronRight
+            className="h-4 w-4 shrink-0 text-gray-400"
+            strokeWidth={2}
+          />
+        </>
+      )}
 
       {/* Current Page - Bold & Pinned Left */}
       <span className="max-w-45 truncate font-bold text-gray-900 md:max-w-none">

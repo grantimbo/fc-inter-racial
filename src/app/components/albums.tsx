@@ -1,11 +1,15 @@
 import { Album } from "@/lib/types";
 import { urlFor } from "@/lib/sanity.image";
 import Link from "next/link";
+import Breadcrumbs from "./breadcrumbs";
 
 export default async function Albums({ albums }: { albums: Album[] }) {
   return (
-    <section className="scroll-mt-36 bg-white px-4 py-36 font-sans md:scroll-mt-20">
+    <section className="scroll-mt-36 bg-white px-4 md:py-36 py-20 font-sans md:scroll-mt-20">
       <div className="mx-auto max-w-6xl text-center">
+        <div className="text-left">
+            <Breadcrumbs currentPage="Gallery" />
+        </div>
         <h2 className="mb-12 text-4xl font-black tracking-tight text-black md:text-6xl">
           Gallery
         </h2>
