@@ -6,6 +6,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import AlbumPictures from "../../components/album-pictures";
 import { siteTitle } from "@/lib/seo";
+import { notFound } from "next/navigation";
 
 export type ParamsType = {
   params: Promise<{
@@ -37,7 +38,7 @@ export default async function AlbumDetails({ params }: ParamsType) {
   const { slug } = await params;
   const albumDetails = await getAlbum(slug);
 
-  if (!albumDetails) return <div>Album Not Found</div>;
+  if (!albumDetails) return notFound();
 
   return (
     <div>

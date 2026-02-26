@@ -6,6 +6,7 @@ import Footer from "../../components/footer";
 import PlayerDetails from "../../components/player-details";
 import { siteTitle } from "@/lib/seo";
 import { cache } from "react";
+import { notFound } from "next/navigation";
 
 // Update the type to reflect that params is a Promise
 export type ParamsType = {
@@ -38,7 +39,7 @@ export default async function PlayerProfile({ params }: ParamsType) {
   const { slug } = await params;
   const playerData = await getPlayer(slug);
 
-  if (!playerData) return <div>Player Not Found</div>;
+  if (!playerData) return notFound();
 
   return (
     <>
