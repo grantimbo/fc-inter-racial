@@ -4,6 +4,8 @@ import { Player } from "@/lib/types";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import PlayerDetails from "../../components/player-details";
+import { siteTitle } from "@/lib/seo";
+import { cache } from "react";
 
 // Update the type to reflect that params is a Promise
 export type ParamsType = {
@@ -12,44 +14,37 @@ export type ParamsType = {
   }>;
 };
 
-export async function generateMetadata({ params }: ParamsType): Promise<Metadata> {
-  const { slug } = await params;
-
+// 1. Wrap the fetch call in React's cache function
+const getPlayer = cache(async (slug: string) => {
   const player = await client.fetch<Player[]>(
     `*[_type == "player" && slug.current == $slug]`,
     { slug },
   );
+  return player?.[0] || null;
+});
 
-  if (!player || player.length === 0) {
-    return {
-      title: "Inter Racial Football Club - Player",
-    };
-  }
+export async function generateMetadata({
+  params,
+}: ParamsType): Promise<Metadata> {
+  const { slug } = await params;
+  const player = await getPlayer(slug);
 
   return {
-    title: `Inter Racial Football Club - ${player[0].name}`,
+    title: `${player?.name ?? "Player Not Found"} - ${siteTitle}`,
   };
 }
 
 export default async function PlayerProfile({ params }: ParamsType) {
-  // 1. Unwrapping the params promise
   const { slug } = await params;
+  const playerData = await getPlayer(slug);
 
-  // 2. Using parameterized query (Security: Avoid string interpolation)
-  const player = await client.fetch<Player[]>(
-    `*[_type == "player" && slug.current == $slug]`,
-    { slug },
-  );
-
-  if (!player || player.length === 0) return <div>Player not found</div>;
-
-  const playerData = player[0];
+  if (!playerData) return <div>Player Not Found</div>;
 
   return (
-    <div>
+    <>
       <Header />
       <PlayerDetails player={playerData} />
       <Footer />
-    </div>
+    </>
   );
 }
