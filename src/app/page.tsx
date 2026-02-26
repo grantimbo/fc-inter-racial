@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="pt-16 md:pt-20">
-      <Header/>
-      <HeroSlider/>
-      <PlayersSection/>
-      <News/>
-      <OurStory/>
-      <Footer/>
-    </div>
+    <>
+      <Header />
+      <HeroSlider />
+      <PlayersSection />
+      <News />
+      <OurStory />
+      <Footer />
+    </>
   );
 }
