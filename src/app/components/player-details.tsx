@@ -38,7 +38,7 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         />
       </div>
 
-      <div className="mx-auto mb-12 grid w-full max-w-6xl grid-cols-1 items-start gap-8 md:grid-cols-2">
+      <div className="mx-auto mb-2 grid w-full max-w-6xl grid-cols-1 items-start gap-8 md:mb-12 md:grid-cols-2">
         {/* Left Side: Player Image */}
         <div className="relative flex aspect-4/5 justify-center overflow-hidden bg-[#dbdadf]">
           {player.profilePicture ? (

@@ -148,6 +148,9 @@ const Header = () => {
             >
               Our Story
             </Link>
+            <Link href="/shop" className={getLinkClass("/shop")}>
+              Shop
+            </Link>
             <Link href="/contact" className={getLinkClass("/contact")}>
               Contact
             </Link>
@@ -191,6 +194,13 @@ const Header = () => {
                 onClick={handleSectionClick("our-story")}
               >
                 Our Story
+              </Link>
+              <Link
+                href="/shop"
+                className={`py-2 ${getLinkClass("/shop")}`}
+                onClick={() => setOpen(false)}
+              >
+                Shop
               </Link>
               <Link
                 href="/contact"

@@ -78,3 +78,20 @@ export interface Achievement {
   coverImage: SanityImage;
   images: SanityImage[];
 }
+
+export interface Product {
+  _id: string;
+  _createdAt: string;
+  name: string;
+  slug: {
+    current: string;
+  };
+  category: "kits" | "apparel" | "accessories";
+  mainImage: SanityImage;
+  images?: SanityImage[];
+  price?: number;
+  status: "coming-soon" | "made-to-order" | "on-sale" | "sold-out";
+  description?: string;
+  button: string;
+  buttonLink: string;
+}
