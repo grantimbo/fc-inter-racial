@@ -55,7 +55,7 @@ export default function AlbumPictures({ album }: AlbumDetailsProps) {
 
   return (
     <section className="scroll-mt-36 bg-white px-4 py-20 font-sans md:scroll-mt-20 md:py-36">
-      <div className="mx-auto max-w-6xl text-left">
+      <div className="mx-auto max-w-6xl text-center">
         <Breadcrumbs
           currentPage={album.title}
           parentPage="Gallery"
