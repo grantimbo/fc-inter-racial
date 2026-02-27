@@ -92,7 +92,7 @@ export default function ProductDetails({ product }: { product: Product }) {
             </div>
 
             {/* Navigation Arrows */}
-            <div className="absolute right-6 bottom-6 flex space-x-2 opacity-0 transition-opacity group-hover:opacity-100">
+            <div className="absolute right-6 bottom-6 flex space-x-2">
               <button
                 onClick={prevImage}
                 className="rounded-full bg-white p-3 shadow-md transition-transform hover:bg-gray-100 active:scale-95"
