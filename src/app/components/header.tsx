@@ -58,6 +58,8 @@ const Header = () => {
 
     if (path === "/players") {
        isActive = pathname.startsWith("/players");
+    } else if (path === "/achievements") {
+       isActive = pathname.startsWith("/achievements");
     } else if (path === "/gallery") {
        isActive = pathname.startsWith("/gallery");
     } else if (path === "/contact") {
@@ -133,6 +135,9 @@ const Header = () => {
             <Link href="/players" className={getLinkClass("/players")}>
               Players
             </Link>
+            <Link href="/achievements" className={getLinkClass("/achievements")}>
+              Achievements
+            </Link>
             <Link href="/gallery" className={getLinkClass("/gallery")}>
               Gallery
             </Link>
@@ -165,6 +170,13 @@ const Header = () => {
                 onClick={() => setOpen(false)}
               >
                 Players
+              </Link>
+              <Link
+                href="/achievements"
+                className={`py-2 ${getLinkClass("/achievements")}`}
+                onClick={() => setOpen(false)}
+              >
+                Achievements
               </Link>
               <Link
                 href="/gallery"
