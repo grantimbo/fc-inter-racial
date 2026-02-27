@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   title: `Home - ${siteTitle}`,
 };
 
+// Test deploy hook on Vercel
+
 export default function Home() {
   return (
     <>
