@@ -6,6 +6,37 @@ import { formatValueToTitle } from "@/lib/utils";
 import { Product } from "@/lib/types";
 import { urlFor } from "@/lib/sanity.image";
 import Image from "next/image";
+import { cache } from "react";
+import { Metadata } from "next";
+import { siteTitle } from "@/lib/seo";
+import { notFound } from "next/navigation";
+
+export type ParamsType = {
+  params: Promise<{
+    category: string;
+  }>;
+};
+
+// 1. Wrap the fetch call in React's cache function
+const getCategory = cache(async (category: string) => {
+  const products = await client.fetch(
+    `*[_type == "product" && category == $category]`,
+    { category },
+  );
+
+  return products || null;
+});
+
+export async function generateMetadata({
+  params,
+}: ParamsType): Promise<Metadata> {
+  const { category } = await params;
+  const cat = await getCategory(category);
+
+  return {
+    title: `${cat[0]?.category ? `Shop ${formatValueToTitle(cat[0]?.category)}` : "Merch Not Found"} - ${siteTitle}`,
+  };
+}
 
 export default async function CategoryPage({
   params,
@@ -13,11 +44,9 @@ export default async function CategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
+  const products = await getCategory(category);
 
-  const products = await client.fetch(
-    `*[_type == "product" && category == $category]`,
-    { category },
-  );
+  if (!products[0]) return notFound();
 
   return (
     <>
@@ -28,11 +57,11 @@ export default async function CategoryPage({
           <Breadcrumbs
             parentPage="Shop"
             parentPageLink="/shop"
-            currentPage={formatValueToTitle(products[0].category)}
+            currentPage={formatValueToTitle(products[0]?.category)}
           />
 
           <h2 className="mb-12 text-center text-4xl font-black tracking-tight text-black md:text-6xl">
-            {formatValueToTitle(products[0].category)}
+            {formatValueToTitle(products[0]?.category)}
           </h2>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
