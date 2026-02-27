@@ -63,3 +63,18 @@ export interface Album {
   coverImage: SanityImage;
   images: SanityImage[];
 }
+
+export interface Achievement {
+  _id: string;
+  _type: "achievement";
+  title: string;
+  slug: {
+    current: string;
+  };
+  date: string;
+  rank: string;
+  description: string;
+  details?: PortableTextBlock[];
+  coverImage: SanityImage;
+  images: SanityImage[];
+}
