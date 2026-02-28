@@ -49,6 +49,8 @@ export interface HeroSlide {
   title: string;
   description: string;
   image?: SanityImage;
+  button?: string;
+  buttonLink?: string;
 }
 
 export interface Album {

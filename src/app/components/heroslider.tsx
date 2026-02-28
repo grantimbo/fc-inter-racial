@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { urlFor } from "@/lib/sanity.image";
 import { HeroSlide } from "@/lib/types";
+import Link from "next/link";
 
 export default function HeroSliderClient({ slides }: { slides: HeroSlide[] }) {
   const [current, setCurrent] = useState(0);
@@ -53,6 +54,17 @@ export default function HeroSliderClient({ slides }: { slides: HeroSlide[] }) {
               </span>
             </h2>
             <p className="mt-5 ml-2 text-white">{slide.description}</p>
+
+            {slide.buttonLink && (
+              <div className="mt-6">
+                <Link
+                  href={slide.buttonLink}
+                  className="inline-block cursor-pointer rounded-md border-2 border-white bg-white px-8 py-3 font-semibold transition-all hover:bg-transparent hover:text-white"
+                >
+                  {slide.button}
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       ))}
@@ -61,13 +73,13 @@ export default function HeroSliderClient({ slides }: { slides: HeroSlide[] }) {
       <div className="absolute right-10 bottom-10 z-30 flex gap-4">
         <button
           onClick={prevSlide}
-          className="rounded-full border border-white/30 p-3 text-white transition-colors hover:bg-white hover:text-black"
+          className="cursor-pointer rounded-full border border-white/30 p-3 text-white transition-colors hover:bg-white hover:text-black"
         >
           <ChevronLeft size={24} />
         </button>
         <button
           onClick={nextSlide}
-          className="rounded-full bg-white p-3 text-black transition-colors hover:bg-red-600 hover:text-white"
+          className="cursor-pointer rounded-full bg-white p-3 text-black transition-colors hover:bg-red-600 hover:text-white"
         >
           <ChevronRight size={24} />
         </button>
