@@ -12,7 +12,12 @@ export const metadata: Metadata = {
 
 export default async function GalleryPage() {
   const albums = await client.fetch<Album[]>(
-    `*[_type == "album"]{ _id, title, slug, coverImage }`,
+    `*[_type == "album"] | order(date desc) { 
+      _id,
+      title,
+      slug,
+      coverImage
+    }`,
   );
 
   return (

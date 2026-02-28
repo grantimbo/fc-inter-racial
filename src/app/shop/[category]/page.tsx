@@ -20,7 +20,7 @@ export type ParamsType = {
 // 1. Wrap the fetch call in React's cache function
 const getCategory = cache(async (category: string) => {
   const products = await client.fetch(
-    `*[_type == "product" && category == $category]`,
+    `*[_type == "product" && category == $category] | order(date desc)`,
     { category },
   );
 

@@ -5,9 +5,11 @@ import { HeroSlide } from "@/lib/types";
 export default async function HeroSlider() {
   // Fetch data on the server
   const slides = await client.fetch<HeroSlide[]>(`
-    *[_type == "slide"] | order(_createdAt asc) {
+    *[_type == "slide"] | order(date asc) {
       _id,
       title,
+      button,
+      buttonLink,
       description,
       image
     }
