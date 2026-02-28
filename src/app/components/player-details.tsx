@@ -68,9 +68,9 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         <div className="space-y-6">
           <header>
             <h2 className="font-narrow mb-2 text-8xl leading-none font-black">
-              {player.squadNumber !== undefined && player.squadNumber !== null
-                ? `#${player.squadNumber}`
-                : "N/A"}
+              {player.squadNumber !== undefined &&
+                player.squadNumber !== null &&
+                `#${player.squadNumber}`}
             </h2>
             <h1 className="text-6xl leading-tight font-bold tracking-tight">
               {player.name}
@@ -142,7 +142,7 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
           </div>
 
           {/* Conditional Rendering Logic */}
-          <div className="min-h-75 w-full max-w-md">
+          <div className="min-h-75 w-full lg:max-w-md">
             {activeTab === "profile" ? (
               /* Stats Table */
               <div className="">
