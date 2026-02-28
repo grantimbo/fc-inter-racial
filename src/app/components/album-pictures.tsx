@@ -14,10 +14,11 @@ interface AlbumDetailsProps {
 export default function AlbumPictures({ album }: AlbumDetailsProps) {
   // Track index to enable math-based looping
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
   const images = album.images || [];
 
   const handleNext = useCallback(
-    (e?: React.MouseEvent) => {
+    (e?: React.MouseEvent | React.TouchEvent) => {
       e?.stopPropagation();
       setSelectedIndex((prev) =>
         prev !== null ? (prev + 1) % images.length : 0,
@@ -27,7 +28,7 @@ export default function AlbumPictures({ album }: AlbumDetailsProps) {
   );
 
   const handlePrev = useCallback(
-    (e?: React.MouseEvent) => {
+    (e?: React.MouseEvent | React.TouchEvent) => {
       e?.stopPropagation();
       setSelectedIndex((prev) =>
         prev !== null
@@ -40,7 +41,22 @@ export default function AlbumPictures({ album }: AlbumDetailsProps) {
 
   const closeLightbox = () => setSelectedIndex(null);
 
-  // Keyboard navigation
+  // 1. Swipe Logic for Modal
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const distance = touchStart - touchEnd;
+
+    if (distance > 50) handleNext(); // Swipe Left -> Next
+    if (distance < -50) handlePrev(); // Swipe Right -> Prev
+    setTouchStart(null);
+  };
+
+  // 2. Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedIndex === null) return;
@@ -87,12 +103,14 @@ export default function AlbumPictures({ album }: AlbumDetailsProps) {
         {/* Lightbox Modal */}
         {selectedIndex !== null && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/86 p-4 md:p-10"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 md:p-10"
             onClick={closeLightbox}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {/* Close Button */}
             <button
-              className="absolute top-6 right-6 z-50 cursor-pointer rounded-full bg-white/70 p-2 hover:bg-white"
+              className="absolute top-6 right-6 z-60 cursor-pointer rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white hover:text-black"
               onClick={closeLightbox}
             >
               <X size={32} />
@@ -100,32 +118,39 @@ export default function AlbumPictures({ album }: AlbumDetailsProps) {
 
             {/* Previous Button */}
             <button
-              className="absolute left-4 z-50 cursor-pointer rounded-full bg-white/60 p-3 transition-colors hover:bg-white md:left-10"
-              onClick={handlePrev}
+              className="absolute left-4 z-60 cursor-pointer rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white hover:text-black md:left-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrev();
+              }}
             >
               <ChevronLeft size={48} />
             </button>
 
             {/* Image Container */}
             <div
-              className="relative flex h-full w-full items-center justify-center"
+              className="pointer-events-none relative flex h-full w-full items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={urlFor(images[selectedIndex]).url()}
-                className="max-h-full max-w-full rounded shadow-2xl transition-all duration-300"
+                className="pointer-events-auto max-h-full max-w-full rounded shadow-2xl transition-all duration-300 select-none"
                 alt="Enlarged gallery item"
               />
+
               {/* Counter */}
-              <div className="absolute bottom-[-40px] text-sm font-medium tracking-widest opacity-50">
+              <div className="absolute -bottom-10 text-sm font-medium tracking-widest text-white/50">
                 {selectedIndex + 1} / {images.length}
               </div>
             </div>
 
             {/* Next Button */}
             <button
-              className="absolute right-4 z-50 cursor-pointer rounded-full bg-white/60 p-3 transition-colors hover:bg-white md:right-10"
-              onClick={handleNext}
+              className="absolute right-4 z-60 cursor-pointer rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white hover:text-black md:right-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
             >
               <ChevronRight size={48} />
             </button>
