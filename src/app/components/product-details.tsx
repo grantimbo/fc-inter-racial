@@ -51,33 +51,10 @@ export default function ProductDetails({ product }: { product: Product }) {
           currentPage={product.name}
         />
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-          {/* 2. Left: Thumbnail Sidebar */}
-          <div className="hidden flex-col space-y-3 lg:col-span-1 lg:flex">
-            {allImages.map((img, i) => (
-              <div
-                key={img.asset._ref || i}
-                onClick={() => setCurrentIndex(i)} // Thumbnail Click Function
-                className={`aspect-square w-full cursor-pointer overflow-hidden rounded-sm bg-gray-100 transition-all ${
-                  currentIndex === i
-                    ? "ring-2 ring-black"
-                    : "ring-gray-400 hover:ring-1"
-                }`}
-              >
-                <Image
-                  src={urlFor(img).width(100).height(100).fit("crop").url()}
-                  alt={`${product.name} thumb ${i}`}
-                  width={100}
-                  height={100}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* 3. Center: Main Image Gallery */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+          {/* 1. Main Image Gallery (Order 1 on mobile) */}
           <div
-            className="group relative overflow-hidden bg-gray-100 lg:col-span-6"
+            className="group relative overflow-hidden bg-gray-100 md:order-2 md:col-span-6"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
@@ -108,12 +85,35 @@ export default function ProductDetails({ product }: { product: Product }) {
             </div>
           </div>
 
-          {/* 4. Right: Product Info */}
-          <div className="flex flex-col lg:col-span-5">
+          {/* 2. Thumbnail Section (Row on mobile, Sidebar on Tablet/MD+) */}
+          <div className="flex flex-row space-x-3 overflow-x-auto p-2 md:order-1 md:col-span-1 md:flex md:flex-col md:space-y-3 md:space-x-0 md:overflow-visible md:p-0">
+            {allImages.map((img, i) => (
+              <div
+                key={img.asset._ref || i}
+                onClick={() => setCurrentIndex(i)}
+                className={`aspect-square w-20 flex-shrink-0 cursor-pointer overflow-hidden rounded-sm bg-gray-100 transition-all md:w-full ${
+                  currentIndex === i
+                    ? "ring-2 ring-black"
+                    : "ring-gray-400 hover:ring-1"
+                }`}
+              >
+                <Image
+                  src={urlFor(img).width(100).height(100).fit("crop").url()}
+                  alt={`${product.name} thumb ${i}`}
+                  width={100}
+                  height={100}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* 3. Product Info (Order 3 on mobile/tablet) */}
+          <div className="flex flex-col md:order-3 md:col-span-5">
             <span className="text-sm font-medium text-orange-700">
               {formatValueToTitle(product.status)}
             </span>
-            <h1 className="mt-1 text-3xl font-bold tracking-tight">
+            <h1 className="mt-3 text-3xl font-bold tracking-tight">
               {product.name}
             </h1>
             <p className="text-gray-600">
