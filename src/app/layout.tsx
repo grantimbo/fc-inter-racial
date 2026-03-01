@@ -1,9 +1,9 @@
-import Script from 'next/script';
+import Script from "next/script";
 import type { Metadata } from "next";
 import { Poppins, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import HashScroll from "./components/hash-scroll";
-
+import { siteTitle } from "@/lib/seo";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,8 +18,31 @@ const bebbas = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "Inter Racial Football Club",
-  description: "Based in the heart of Dumaguete City, our club is defined by a passion for the beautiful game.",
+  title: siteTitle,
+  description:
+    "Official website of Inter Racial Football Club (IRFC). A diverse football community based in the heart of Dumaguete City, Philippines.",
+  keywords: [
+    "IRFC",
+    "Football Dumaguete",
+    "Soccer Philippines",
+    "Dumaguete Sports",
+    "Inter Racial Football Club",
+  ],
+  openGraph: {
+    title: siteTitle,
+    description: "United by the beautiful game in Dumaguete City.",
+    url: "https://interracial.com",
+    siteName: "IRFC",
+    images: [
+      {
+        url: "/imgs/og-default.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_PH",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -43,7 +66,7 @@ export default function RootLayout({
           defer
           crossOrigin="anonymous"
           src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v22.0&appId=250706382314503"
-          strategy="afterInteractive" 
+          strategy="afterInteractive"
         />
       </body>
     </html>

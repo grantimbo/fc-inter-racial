@@ -7,6 +7,7 @@ import PlayerDetails from "../../components/player-details";
 import { siteTitle } from "@/lib/seo";
 import { cache } from "react";
 import { notFound } from "next/navigation";
+import { urlFor } from "@/lib/sanity.image";
 
 // Update the type to reflect that params is a Promise
 export type ParamsType = {
@@ -30,8 +31,35 @@ export async function generateMetadata({
   const { slug } = await params;
   const player = await getPlayer(slug);
 
+  if (!player) {
+    return { title: `Player Not Found - ${siteTitle}` };
+  }
+
+  const ogImage = player.profilePicture
+    ? urlFor(player.profilePicture)
+        .width(1200)
+        .height(630)
+        .fit("crop")
+        .crop("top")
+        .url()
+    : `/imgs/og-default.jpg`;
+
   return {
-    title: `${player?.name ?? "Player Not Found"} - ${siteTitle}`,
+    title: `${player.name} - ${siteTitle}`,
+    description: `Official profile for Inter Racial Football Club player ${player.name}.`,
+    openGraph: {
+      title: `${player.name} - IRFC Player`,
+      description: `Official profile for Inter Racial Football Club player ${player.name}.`,
+      type: "profile",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `${player.name} profile picture`,
+        },
+      ],
+    },
   };
 }
 
