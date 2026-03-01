@@ -14,10 +14,10 @@ const OurStory = () => {
         </h2>
 
         {/* Story Image Container */}
-        <div className="relative mx-auto mb-12 aspect-4/3 overflow-hidden rounded-md shadow-sm md:aspect-video">
+        <div className="relative mx-auto mb-12 aspect-4/3 overflow-hidden rounded-md shadow-sm">
           {/* Replace src with your actual uploaded image path */}
           <Image
-            src="/imgs/first-tournament.jpg"
+            src="/imgs/bayawan.jpg"
             alt="FC Inter Racial team in their early days"
             fill
             className="object-cover"
