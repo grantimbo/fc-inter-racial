@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteTitle,
     description: "United by the beautiful game in Dumaguete City.",
-    url: "https://interracial.com",
+    url: "https://interracialfc.com",
     siteName: "IRFC",
     images: [
       {
