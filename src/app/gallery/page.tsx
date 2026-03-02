@@ -18,6 +18,8 @@ export default async function GalleryPage() {
       slug,
       coverImage
     }`,
+    {},
+    { next: { tags: ["album"] } },
   );
 
   return (

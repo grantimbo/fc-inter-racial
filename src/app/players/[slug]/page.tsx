@@ -21,6 +21,7 @@ const getPlayer = cache(async (slug: string) => {
   const player = await client.fetch<Player[]>(
     `*[_type == "player" && slug.current == $slug]`,
     { slug },
+    { next: { tags: ["player"] } },
   );
   return player?.[0] || null;
 });

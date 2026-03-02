@@ -19,6 +19,7 @@ const getAlbum = cache(async (slug: string) => {
   const album = await client.fetch<Album[]>(
     `*[_type == "album" && slug.current == $slug]`,
     { slug },
+    { next: { tags: ["album"] } },
   );
   return album?.[0] || null;
 });

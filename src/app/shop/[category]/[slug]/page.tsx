@@ -21,6 +21,7 @@ const getProduct = cache(async (slug: string) => {
   const product = await client.fetch<Product[]>(
     `*[_type == "product" && slug.current == $slug]`,
     { slug },
+    { next: { tags: ["product"] } },
   );
   return product?.[0] || null;
 });

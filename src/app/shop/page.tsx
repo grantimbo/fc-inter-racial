@@ -17,6 +17,8 @@ export const metadata: Metadata = {
 export default async function ShopPage() {
   const products = await client.fetch<Product[]>(
     `*[_type == "product"] | order(date desc)`,
+    {},
+    { next: { tags: ["product"] } },
   );
 
   return (

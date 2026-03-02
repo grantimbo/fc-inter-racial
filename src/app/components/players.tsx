@@ -92,6 +92,8 @@ export default async function PlayersSection({
   // Fetch data directly in the component
   const players = await client.fetch<Player[]>(
     `*[_type == "player"] | order(name asc)`,
+    {},
+    { next: { tags: ["player"] } },
   );
 
   return (

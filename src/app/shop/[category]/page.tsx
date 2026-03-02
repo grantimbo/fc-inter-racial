@@ -22,6 +22,7 @@ const getCategory = cache(async (category: string) => {
   const products = await client.fetch(
     `*[_type == "product" && category == $category] | order(date desc)`,
     { category },
+    { next: { tags: ["product"] } },
   );
 
   return products || null;
