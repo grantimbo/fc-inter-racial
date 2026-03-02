@@ -6,6 +6,7 @@ import { urlFor } from "@/lib/sanity.image";
 import { Player, SanityImage } from "@/lib/types";
 import { PortableText } from "@portabletext/react";
 import Breadcrumbs from "./breadcrumbs";
+import { formatDate } from "@/lib/utils";
 
 interface PlayerDetailsProps {
   player: Player;
@@ -147,9 +148,15 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
               /* Stats Table */
               <div className="">
                 {[
-                  { label: "Date of birth", value: player.dob || "N/A" },
+                  {
+                    label: "Date of birth",
+                    value: formatDate(player.dob) || "N/A",
+                  },
                   { label: "Nationality", value: player.nationality || "N/A" },
-                  { label: "Date signed", value: player.dateSigned || "N/A" },
+                  {
+                    label: "Date signed",
+                    value: formatDate(player.dateSigned) || "N/A",
+                  },
                 ].map((stat, idx) => (
                   <div
                     key={idx}
