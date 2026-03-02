@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { submitContactForm } from "../contact/actions";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -14,14 +15,11 @@ export default function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (state.success && formRef.current) {
-      formRef.current.reset();
-      recaptchaRef.current?.reset();
-      setCaptchaToken(null);
-    }
-  }, [state.success]);
+  const searchParams = useSearchParams();
+  const defaultSubject = searchParams.get("subject") || "General";
+  const defaultProduct = searchParams.get("product") || "";
+  const [subject, setSubject] = useState(defaultSubject);
+  const [product, setProduct] = useState(defaultProduct);
 
   return (
     <form ref={formRef} action={formAction} className="space-y-6">
@@ -55,14 +53,38 @@ export default function ContactForm() {
         <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
           Subject
         </label>
-        <input
-          type="text"
+        <select
           name="subject"
           id="subject"
           required
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black sm:text-sm"
-        />
+          value={subject}
+          onChange={(event) => setSubject(event.target.value)}
+          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black sm:text-sm"
+        >
+          <option value="General">General</option>
+          <option value="Order">Order</option>
+          <option value="I want to join">I want to join</option>
+          <option value="Questions">Questions</option>
+          <option value="Sponsorship">Sponsorship</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
+      {subject === "Order" && (
+        <div>
+          <label htmlFor="product" className="block text-sm font-medium text-gray-700">
+            Product
+          </label>
+          <input
+            type="text"
+            name="product"
+            id="product"
+            required
+            value={product}
+            onChange={(event) => setProduct(event.target.value)}
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black sm:text-sm"
+          />
+        </div>
+      )}
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-gray-700">
           Message
@@ -109,4 +131,3 @@ export default function ContactForm() {
     </form>
   );
 }
-

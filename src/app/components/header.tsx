@@ -158,7 +158,7 @@ const Header = () => {
         </div>
 
         {open && (
-          <div className="md:hidden pb-4">
+          <div className="lg:hidden pb-4">
             <nav className="flex flex-col space-y-2">
               <Link
                 href="/#news"

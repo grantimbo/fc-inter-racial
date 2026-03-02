@@ -31,8 +31,8 @@ export default function notFound() {
       </h2>
 
       <p className="text-md mb-8 max-w-sm text-gray-500">
-        It looks like you've wandered off the pitch. The page you are looking
-        for doesn't exist or has been moved to a different league.
+        It looks like you have wandered off the pitch. The page you are looking
+        for does not exist or has been moved to a different league.
       </p>
 
       <div className="flex flex-col gap-4 sm:flex-row">

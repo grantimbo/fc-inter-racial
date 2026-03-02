@@ -3,10 +3,19 @@
 import nodemailer from "nodemailer";
 import { generateEmailTemplate } from "./email-template";
 
-export async function submitContactForm(prevState: any, formData: FormData) {
+type ContactFormState = {
+  success: boolean;
+  message: string;
+};
+
+export async function submitContactForm(
+  prevState: ContactFormState,
+  formData: FormData,
+) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const subject = formData.get("subject") as string;
+  const product = formData.get("product") as string;
   const message = formData.get("message") as string;
   const captchaToken = formData.get("g-recaptcha-response") as string;
 
@@ -17,6 +26,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
   if (!captchaToken) {
     return { success: false, message: "Please complete the CAPTCHA." };
+  }
+  if (subject === "Order" && !product) {
+    return { success: false, message: "Product is required for orders." };
   }
 
   try {
@@ -50,11 +62,12 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 Name: ${name}
 Email: ${email}
 Subject: ${subject}
+Product: ${product || "N/A"}
 
 Message:
 ${message}
       `,
-      html: generateEmailTemplate(name, email, subject, message),
+      html: generateEmailTemplate(name, email, subject, message, product),
     });
 
     return { success: true, message: "Message sent successfully! We'll get back to you soon." };
