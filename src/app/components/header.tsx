@@ -60,6 +60,8 @@ const Header = () => {
        isActive = pathname.startsWith("/players");
     } else if (path === "/achievements") {
        isActive = pathname.startsWith("/achievements");
+    } else if (path === "/shop") {
+      isActive = pathname.startsWith("/shop");
     } else if (path === "/gallery") {
        isActive = pathname.startsWith("/gallery");
     } else if (path === "/contact") {
