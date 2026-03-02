@@ -13,6 +13,10 @@ export default function ProductDetails({ product }: { product: Product }) {
   const allImages = [product.mainImage, ...(product.images || [])];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
+  const isMessageToOrder = product.button?.toLowerCase().includes("message");
+  const orderLink = `/contact?subject=Order&product=${encodeURIComponent(product.name)}`;
+  const buttonLink = isMessageToOrder ? orderLink : product.buttonLink;
+  const hasButtonLink = Boolean(buttonLink);
 
   // 2. Loop Logic for Arrows
   const nextImage = () => {
@@ -129,8 +133,8 @@ export default function ProductDetails({ product }: { product: Product }) {
             {/* Actions */}
             <div className="mt-8 space-y-3">
               <a
-                href={product.buttonLink}
-                className={`block w-full rounded-md bg-black py-5 text-center text-lg font-bold text-white transition-colors hover:bg-zinc-800 ${product.buttonLink ? "cursor-pointer" : "cursor-not-allowed"}`}
+                href={buttonLink || "#"}
+                className={`block w-full rounded-md bg-black py-5 text-center text-lg font-bold text-white transition-colors hover:bg-zinc-800 ${hasButtonLink ? "cursor-pointer" : "cursor-not-allowed"}`}
               >
                 {product.button}
               </a>

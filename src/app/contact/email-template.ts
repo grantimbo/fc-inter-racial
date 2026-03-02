@@ -1,4 +1,10 @@
-export const generateEmailTemplate = (name: string, email: string, subject: string, message: string) => {
+export const generateEmailTemplate = (
+  name: string,
+  email: string,
+  subject: string,
+  message: string,
+  product?: string,
+) => {
   return `
 <!DOCTYPE html>
 <html>
@@ -123,6 +129,12 @@ export const generateEmailTemplate = (name: string, email: string, subject: stri
           <span class="label">Subject</span>
           <div class="value">${subject}</div>
         </div>
+        ${product ? `
+        <div class="field">
+          <span class="label">Product</span>
+          <div class="value">${product}</div>
+        </div>
+        ` : ""}
 
         <div class="field">
           <span class="label">Message</span>

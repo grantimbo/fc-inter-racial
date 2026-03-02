@@ -4,6 +4,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { siteTitle } from "@/lib/seo";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: `Contact - ${siteTitle}`,
@@ -26,7 +27,9 @@ export default function ContactPage() {
           </p>
           
           <div className="bg-white p-8 shadow-lg rounded-lg border border-gray-100">
+            <Suspense fallback={null}>
               <ContactForm />
+            </Suspense>
           </div>
         </div>
       </section>
